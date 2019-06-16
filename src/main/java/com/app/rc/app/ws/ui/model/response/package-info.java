@@ -1,0 +1,1 @@
+package com.app.rc.app.ws.ui.model.response;
