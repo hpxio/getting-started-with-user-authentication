@@ -79,6 +79,9 @@ public class UserRegistrationServiceImpl
         return res;
     }
 
+    /**
+     * 
+     */
     @Override
     public UserDetails loadUserByUsername ( String email )
             throws UsernameNotFoundException {
@@ -92,6 +95,24 @@ public class UserRegistrationServiceImpl
         return new User ( entity.getEmail ( ),
                 entity.getEncryptedPassword ( ),
                 new ArrayList<> ( ) );
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public UserRegistrationDto getUser ( String email ) {
+
+        UserRegistrationEntity entity = repository
+                .findByEmail ( email );
+
+        if ( entity == null )
+            throw new RuntimeException ( );
+
+        UserRegistrationDto dto = new UserRegistrationDto ( );
+        BeanUtils.copyProperties ( entity, dto );
+
+        return dto;
     }
 
 }

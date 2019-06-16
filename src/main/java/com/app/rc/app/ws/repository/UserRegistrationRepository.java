@@ -16,5 +16,4 @@ public interface UserRegistrationRepository
 
     public UserRegistrationEntity findByEmail (
             String email );
-
 }

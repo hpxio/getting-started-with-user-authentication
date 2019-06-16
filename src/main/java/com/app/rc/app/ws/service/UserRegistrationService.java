@@ -14,4 +14,6 @@ public interface UserRegistrationService
 
     public UserRegistrationDto registerUser (
             UserRegistrationDto registerDto );
+
+    public UserRegistrationDto getUser ( String email );
 }

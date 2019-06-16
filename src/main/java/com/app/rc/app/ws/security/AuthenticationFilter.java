@@ -21,6 +21,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+import com.app.rc.SpringApplicationContext;
+import com.app.rc.app.ws.service.UserRegistrationService;
+import com.app.rc.app.ws.shared.dto.UserRegistrationDto;
 import com.app.rc.app.ws.ui.model.request.UserSignInRequestModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -89,8 +92,23 @@ public class AuthenticationFilter
                         SecurityConstants.TOKEN_SECRET )
                 .compact ( );
 
+        /*
+         * Return authorization token on successful login
+         * attempt
+         */
         response.addHeader (
                 SecurityConstants.HEADER_STRING,
                 SecurityConstants.TOKEN_PREFIX + token );
+
+        /*
+         * Return UserID for session identification after
+         * successful login attempt
+         */
+
+        UserRegistrationService userService = ( UserRegistrationService ) SpringApplicationContext
+                .getBean ( "userRegistrationServiceImpl" );
+        UserRegistrationDto dto = userService
+                .getUser ( userName );
+        response.addHeader ( "UserID", dto.getUserId ( ) );
     }
 }
