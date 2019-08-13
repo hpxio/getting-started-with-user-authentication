@@ -3,7 +3,7 @@ package com.app.rc.gettingStartedWithUserAuthentication.ws.service;
 
 import com.app.rc.gettingStartedWithUserAuthentication.ws.io.entity.UserRegistrationEntity;
 import com.app.rc.gettingStartedWithUserAuthentication.ws.repository.UserRegistrationRepository;
-import com.app.rc.gettingStartedWithUserAuthentication.ws.shared.dto.UserRegistrationDto;
+import com.app.rc.gettingStartedWithUserAuthentication.ws.shared.dto.UserRegistrationDTO;
 import com.app.rc.gettingStartedWithUserAuthentication.ws.shared.utils.GenerateRandomUserId;
 
 import org.springframework.beans.BeanUtils;
@@ -20,9 +20,7 @@ import java.util.ArrayList;
  * @author Harsh
  */
 @Service
-public class UserRegistrationServiceImpl
-    implements
-    UserRegistrationService {
+public class UserRegistrationServiceImpl implements UserRegistrationService {
 
   @Autowired
   UserRegistrationRepository repository;
@@ -34,12 +32,12 @@ public class UserRegistrationServiceImpl
   BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
-  public UserRegistrationDto registerUser(
-      UserRegistrationDto registerDto) {
+  public UserRegistrationDTO registerUser(
+      UserRegistrationDTO registerDto) {
 
     UserRegistrationEntity entity = new UserRegistrationEntity();
     UserRegistrationEntity resEntity = new UserRegistrationEntity();
-    UserRegistrationDto res = new UserRegistrationDto();
+    UserRegistrationDTO res = new UserRegistrationDTO();
 
     /* Prepare internal data */
     registerDto.setEmailVerificationStatus(true);
@@ -61,6 +59,25 @@ public class UserRegistrationServiceImpl
 
   /**
    *
+   * @param updateDTO
+   * @return
+   */
+  @Override
+  public UserRegistrationDTO updateUser(UserRegistrationDTO updateDTO) {
+
+    UserRegistrationEntity entity = new UserRegistrationEntity();
+    UserRegistrationDTO response = new UserRegistrationDTO();
+
+    updateDTO.setEncryptedPassword(bCryptPasswordEncoder.encode(updateDTO.getPassword()));
+    BeanUtils.copyProperties(updateDTO, entity);
+
+    final UserRegistrationEntity result = repository.save(entity);
+    BeanUtils.copyProperties(result, response);
+    return null;
+  }
+
+  /**
+   *
    */
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -75,12 +92,12 @@ public class UserRegistrationServiceImpl
    *
    */
   @Override
-  public UserRegistrationDto getUser(String email) {
+  public UserRegistrationDTO getUser(String email) {
 
     UserRegistrationEntity entity = repository.findByEmail(email);
 
     if (entity == null) { throw new RuntimeException(); }
-    UserRegistrationDto dto = new UserRegistrationDto();
+    UserRegistrationDTO dto = new UserRegistrationDTO();
     BeanUtils.copyProperties(entity, dto);
 
     return dto;

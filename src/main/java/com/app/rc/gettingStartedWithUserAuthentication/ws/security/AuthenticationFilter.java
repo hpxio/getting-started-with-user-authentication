@@ -2,7 +2,7 @@ package com.app.rc.gettingStartedWithUserAuthentication.ws.security;
 
 import com.app.rc.SpringApplicationContext;
 import com.app.rc.gettingStartedWithUserAuthentication.ws.service.UserRegistrationService;
-import com.app.rc.gettingStartedWithUserAuthentication.ws.shared.dto.UserRegistrationDto;
+import com.app.rc.gettingStartedWithUserAuthentication.ws.shared.dto.UserRegistrationDTO;
 import com.app.rc.gettingStartedWithUserAuthentication.ws.ui.model.request.UserSignInRequestModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,7 +78,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     UserRegistrationService userService =
         (UserRegistrationService) SpringApplicationContext.getBean("userRegistrationServiceImpl");
 
-    UserRegistrationDto dto = userService.getUser(userName);
+    UserRegistrationDTO dto = userService.getUser(userName);
     response.addHeader("UserID", dto.getUserId());
   }
 }

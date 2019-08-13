@@ -1,1 +1,0 @@
-package com.app.rc.gettingStartedWithUserAuthentication.ws.ui.model.response;

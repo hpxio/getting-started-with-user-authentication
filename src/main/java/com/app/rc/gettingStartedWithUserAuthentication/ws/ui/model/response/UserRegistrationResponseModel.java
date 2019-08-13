@@ -1,4 +1,4 @@
-package com.app.rc.gettingStartedWithUserAuthentication.ws.ui.model.request;
+package com.app.rc.gettingStartedWithUserAuthentication.ws.ui.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserRegistrationRequestModel {
+public class UserRegistrationResponseModel {
 
-  private String email;
-
-  private String password;
+  private String userId;
 
   private String firstName;
 

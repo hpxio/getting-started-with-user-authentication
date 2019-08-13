@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserRegistrationDto implements Serializable {
+public class UserRegistrationDTO implements Serializable {
 
     private static final long serialVersionUID = -1138556971719309915L;
 
