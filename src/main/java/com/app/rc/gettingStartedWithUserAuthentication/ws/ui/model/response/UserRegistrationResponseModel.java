@@ -18,4 +18,7 @@ public class UserRegistrationResponseModel {
   private String firstName;
 
   private String lastName;
+
+  /* Email ID for Login */
+  private String email;
 }

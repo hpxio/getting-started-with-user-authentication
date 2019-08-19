@@ -59,7 +59,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
   }
 
   /**
-   *
    * @param request
    * @return
    */

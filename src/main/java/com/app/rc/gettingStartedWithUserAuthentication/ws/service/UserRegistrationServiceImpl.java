@@ -58,7 +58,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
   }
 
   /**
-   *
    * @param updateDTO
    * @return
    */
@@ -101,5 +100,20 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     BeanUtils.copyProperties(entity, dto);
 
     return dto;
+  }
+
+  /**
+   * @param userId
+   * @return
+   */
+  @Override
+  public UserRegistrationDTO getUserByUserId(String userId) {
+    UserRegistrationDTO response = new UserRegistrationDTO();
+    final UserRegistrationEntity result = repository.findByUserId(userId);
+
+    if (result == null) { throw new UsernameNotFoundException("User does not exists for " + userId);}
+
+    BeanUtils.copyProperties(result, response);
+    return response;
   }
 }
